@@ -37,19 +37,24 @@
             transform: translateX(-50%); 
             border-bottom-left-radius: 15px; 
             border-bottom-right-radius: 15px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+        } 
+        .status-bar {
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 0 10px;
             color: white;
             font-size: 12px;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
         }
         .time {
-            flex-grow: 1;
             text-align: left;
         }
         .battery {
-            text-align: right;
             display: flex;
             align-items: center;
         }
@@ -156,7 +161,8 @@
 </head>
 <body>
     <div class="phone" onclick="nextMessage()">
-        <div class="notch">
+        <div class="notch"></div>
+        <div class="status-bar">
             <span class="time" id="time">17:48</span>
             <span class="battery">78%</span>
         </div>
