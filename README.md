@@ -51,7 +51,21 @@
             margin-top: 40px; 
             margin-bottom: 50px; 
             font-size: 12px;
+            scrollbar-width: thin; /* Firefox */
         } 
+        .chat-container::-webkit-scrollbar {
+            width: 5px; /* Width of the scrollbar */
+        }
+        .chat-container::-webkit-scrollbar-track {
+            background: transparent; /* Background of the scrollbar track */
+        }
+        .chat-container::-webkit-scrollbar-thumb {
+            background: #888; /* Color of the scrollbar thumb */
+            border-radius: 10px; /* Rounded corners of the scrollbar thumb */
+        }
+        .chat-container::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Color of the scrollbar thumb when hovered */
+        }
         .message { 
             display: flex; 
             align-items: center; 
