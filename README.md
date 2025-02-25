@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +37,42 @@
             transform: translateX(-50%); 
             border-bottom-left-radius: 15px; 
             border-bottom-right-radius: 15px; 
-        } 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 10px;
+            color: white;
+            font-size: 12px;
+        }
+        .time {
+            flex-grow: 1;
+            text-align: left;
+        }
+        .battery {
+            text-align: right;
+            display: flex;
+            align-items: center;
+        }
+        .battery::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 10px;
+            border: 1px solid white;
+            border-radius: 2px;
+            margin-right: 2px;
+            position: relative;
+        }
+        .battery::after {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 4px;
+            background: white;
+            position: absolute;
+            top: 3px;
+            right: 0;
+        }
         .chat-container { 
             flex-grow: 1; 
             padding: 10px; 
@@ -122,7 +156,10 @@
 </head>
 <body>
     <div class="phone" onclick="nextMessage()">
-        <div class="notch"></div>
+        <div class="notch">
+            <span class="time" id="time">17:48</span>
+            <span class="battery">78%</span>
+        </div>
         <div id="chat" class="chat-container"></div>
         <div class="bottom-bar"></div>
     </div>
@@ -170,6 +207,16 @@
                 chatContainer.scrollTop = chatContainer.scrollHeight;
                 index++;
             };
+
+            function updateTime() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                document.getElementById('time').textContent = `${hours}:${minutes}`;
+            }
+
+            setInterval(updateTime, 1000);
+            updateTime();
         });
     </script>
 </body>
