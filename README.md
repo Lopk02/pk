@@ -153,6 +153,31 @@
             cursor: pointer; 
             font-size: 14px; 
         }
+        .input-container {
+            position: absolute;
+            bottom: 10px;
+            width: calc(100% - 20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .input-container input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
         @media (min-width: 600px) {
             .phone {
                 width: 320px;
@@ -174,7 +199,7 @@
     </style>
 </head>
 <body>
-    <div class="phone" onclick="nextMessage()">
+    <div class="phone">
         <div class="notch"></div>
         <div class="status-bar">
             <span class="time" id="time">17:48</span>
@@ -182,6 +207,10 @@
         </div>
         <div id="chat" class="chat-container"></div>
         <button class="food-button" id="foodButton" onclick="suggestFood()">วันนี้กินอะไร</button>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="พิมพ์ข้อความ...">
+            <button onclick="sendMessage()">ส่ง</button>
+        </div>
         <div class="bottom-bar"></div>
     </div>
     <script>
@@ -267,6 +296,37 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
             document.getElementById('foodButton').style.display = 'none';
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            if (userInput.trim() === "") return;
+
+            const chatContainer = document.getElementById("chat");
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", "user");
+
+            const textNode = document.createElement("span");
+            textNode.textContent = userInput;
+
+            messageDiv.appendChild(textNode);
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            document.getElementById('userInput').value = "";
+
+            // Simulate bot response
+            setTimeout(() => {
+                const botMessageDiv = document.createElement("div");
+                botMessageDiv.classList.add("message", "bot");
+
+                const botTextNode = document.createElement("span");
+                botTextNode.textContent = "โต้ตอบ: " + userInput;
+
+                botMessageDiv.appendChild(botTextNode);
+                chatContainer.appendChild(botMessageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 1000);
         }
     </script>
 </body>
