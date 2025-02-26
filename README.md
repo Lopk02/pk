@@ -139,6 +139,20 @@
             left: 50%; 
             transform: translateX(-50%); 
         }
+        .food-button { 
+            display: none; 
+            position: absolute; 
+            bottom: 60px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            padding: 10px 20px; 
+            background-color: #3b82f6; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 14px; 
+        }
         @media (min-width: 600px) {
             .phone {
                 width: 320px;
@@ -167,6 +181,7 @@
             <span class="battery">78%</span>
         </div>
         <div id="chat" class="chat-container"></div>
+        <button class="food-button" id="foodButton" onclick="suggestFood()">วันนี้กินอะไร</button>
         <div class="bottom-bar"></div>
     </div>
     <script>
@@ -212,6 +227,10 @@
                 chatContainer.appendChild(messageDiv);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
                 index++;
+
+                if (messages[index - 1].text.includes("หิวข้าวไหม")) {
+                    document.getElementById('foodButton').style.display = 'block';
+                }
             };
 
             function updateTime() {
@@ -224,6 +243,31 @@
             setInterval(updateTime, 1000);
             updateTime();
         });
+
+        function suggestFood() {
+            const foods = [
+                "ต้มยำกุ้ง",
+                "แกงเขียวหวานไก่",
+                "ผัดไทย",
+                "ผัดกะเพรา",
+                "แกงมัสมั่นไก่",
+                "ข้าวซอย",
+                "ข้าวเหนียวมะม่วง"
+            ];
+            const randomFood = foods[Math.floor(Math.random() * foods.length)];
+            const chatContainer = document.getElementById("chat");
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", "bot");
+
+            const textNode = document.createElement("span");
+            textNode.textContent = `กิน ${randomFood} ดีไหม`;
+
+            messageDiv.appendChild(textNode);
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            document.getElementById('foodButton').style.display = 'none';
+        }
     </script>
 </body>
 </html>
